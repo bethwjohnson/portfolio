@@ -126,9 +126,9 @@ To install Docker, DVWA and beats packages on the webservers, SSH into the contr
   - To check that DVWA is working, visit <load balancer public IP>/setup.php in your web browser.  You should see: ![DVWA landing page](Images/dvwa.png)
 
 - Installing Filebeat and Metricbeat:
-  - Use `cd` to enter your files directory, then use `curl <filebeat-configuration.yml> > filebeat-configuration.yml` to save the file to the directory.
+  - Use `cd` to enter your files directory, then use `curl https://github.com/bethwjohnson/portfolio/blob/master/Ansible/configuration_files/filebeat-configuration.yml > filebeat-configuration.yml` to save the file to the directory.
   - Update this file with <elk server private IP address> for hosts under "output.elasticsearch:" and under "setup.kibana".
-  - Use `cd` to enter your files directory, then use `curl <metricbeat-configuration.yml> > metricbeat-configuration.yml` to save the file to the directory.
+  - Use `cd` to enter your files directory, then use `curl https://github.com/bethwjohnson/portfolio/blob/master/Ansible/configuration_files/metricbeat-configuration.yml > metricbeat-configuration.yml` to save the file to the directory.
   - Update this file with <elk server private IP address> for hosts under "output.elasticsearch:" and under "setup.kibana".
   - To check Filebeat is working, Click "Add log data" on the Kibana home page, then "System logs", then "Check Data".  You should see:![filebeat](Images/filebeat.png)
   - To check Metricbeat is working, Click "Add metric data" on the Kibana home page, then "Docker Metrics" then "Check Data". You should see:![metricbeat](Images/metricbeat.png)
