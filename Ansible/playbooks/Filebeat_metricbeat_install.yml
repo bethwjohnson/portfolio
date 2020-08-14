@@ -1,0 +1,46 @@
+---
+    #Ensure your /etc/ansible/hosts file has the IP addresses for your webservers updated.
+    #Ensure filebeat-configuration.yml and metricbeat-configuration.yml are updated with the internal IP address for the elk server for kibana and elasticsearch
+    #Ensure your remote_user username matches what is configured for your webservers.
+  - name: Install Filebeat and Metricbeat
+    hosts: webservers
+    remote_user: azadmin
+    become: true
+    tasks:
+      # Download Filebeat from elastic. For a different version, refer to elastic.co
+      - name: Download Filebeat
+        command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.4.0-amd64.deb
+      # Install Filebeat
+      - name: Install Filebeat
+        command: dpkg -i filebeat-7.4.0-amd64.deb
+      # Copy Filebeat configuration file from Ansible to WebVM
+      - name: Copy Filebeat config file from Ansible to WebVM
+        copy:
+          src: /etc/ansible/files/filebeat-configuration.yml
+          dest: /etc/filebeat/filebeat.yml
+      # If the following command does not work, you can try using the 'mv' command to rename 'system.yml.disabled' to 'system.yml' in modules.d
+      - name: filebeat modules enable system
+        command: filebeat modules enable system
+      - name: filebeat setup
+        command: filebeat setup
+      - name: service filebeat start
+        command: service filebeat start
+
+      # Download Metricbeat from elastic. For a different version, refer to elastic.co
+      - name: Download Metricbeat
+        command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.4.0-amd64.deb
+      # Install Metricbeat
+      - name: Install Metricbeat
+        command: dpkg -i metricbeat-7.4.0-amd64.deb
+      # Copy Metricbeat configuration file from Ansible to WebVM
+      - name: Copy Metricbeat config file from Ansible to WebVM
+        copy:
+          src: /etc/ansible/files/metricbeat-configuration.yml
+          dest: /etc/metricbeat/metricbeat.yml
+      # If the following command does not work, you can try using the 'mv' command to rename 'docker.yml.disabled' modules.d to 'docker.yml'    
+      - name: metricbeat modules enable docker
+        command: metricbeat modules enable docker
+      - name: metricbeat setup
+        command: metricbeat setup
+      - name: service metricbeat start
+        command: service metricbeat start

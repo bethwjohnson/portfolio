@@ -1,0 +1,54 @@
+---
+  #Ensure your /etc/ansible/hosts file has the IP addresses for your elk server updated.
+  #Ensure your remote_user username matches what is configured for your elk servers.
+  - name: Configure ELK VM with Docker
+    hosts: elk
+    remote_user: azadmin
+    become: true
+    tasks:
+    # Install Docker
+    - name: Install docker.io
+      apt:
+        update_cache: yes
+        force_apt_get: yes
+        name: docker.io
+        state: present
+    # Install Python3
+    - name: Install python3-pip
+      apt:
+        force_apt_get: yes
+        name: python3-pip
+        state: present
+    # Install docker module and use pip module (It will default to pip3)
+    - name: Install Docker module
+      pip:
+        name: docker
+        state: present
+
+    # Use command module to increase virtual memory
+    - name: Increase virtual memory
+      command: sysctl -w vm.max_map_count=262144
+      # Use sysctl module
+    - name: Use more memory
+      sysctl:
+        name: vm.max_map_count
+        value: 262144
+        state: present
+        reload: yes
+
+    # Use docker_container module to download and launch elk container
+    - name: download and launch a docker elk container
+      docker_container:
+        name: elk
+        image: sebp/elk:761
+        state: started
+        restart_policy: always
+        published_ports:
+          -  5601:5601
+          -  9200:9200
+          -  5044:5044
+    - name: Enable docker service
+      systemd:
+        name: docker
+        enabled: yes
+
