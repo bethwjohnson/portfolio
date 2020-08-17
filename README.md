@@ -79,12 +79,12 @@ A summary of the access policies in place can be found in the table below.
 
 |   Name                  |   Publicly Accessible  |   Allowed IP Addresses          |   Ports     |
 |-------------------------|------------------------|---------------------------------|-------------|
-|   Jump-box-provisioner  |   No                   |   108.87.95.162                 |   22        |
+|   Jump-box-provisioner  |   No                   |   xxx.xx.xx.xxx                 |   22        |
 |   Load Balancer         |   Yes                  |   Open                          |   80        |
 |   Web-1, Web-2          |   No                   |   13.92.174.55 (Load Balancer)  |   80        |
 |   Web-1, Web-2          |   No                   |   10.0.0.7                      |   22        |
 |   ELK-Box               |   No                   |   10.0.0.7                      |   22        |
-|   ELK-Box               |   No                   |   108.87.95.162                 |   80, 5601  |
+|   ELK-Box               |   No                   |   xxx.xx.xx.xxx                 |   80, 5601  |
 
 ### Elk Configuration
 
