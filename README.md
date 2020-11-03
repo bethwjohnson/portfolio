@@ -10,9 +10,9 @@ This portfolio is an example of the types of projects I've done, including:
 
 ## Linux Bash Scripts
 
-![roulette_dealer_finder_by_time.sh](Linux/roulette_dealer_finder_by_time.sh)
-![roulette_dealer_finder_by_time_and_game.sh](Linux/roulette_dealer_finder_by_time_and_game.sh)
-![system.sh](Linux/system.sh)
+[roulette_dealer_finder_by_time.sh](Linux/roulette_dealer_finder_by_time.sh)
+[roulette_dealer_finder_by_time_and_game.sh](Linux/roulette_dealer_finder_by_time_and_game.sh)
+[system.sh](Linux/system.sh)
 
 - Roulette Dealer scripts will search through a formatted data file to find information on the person scheduled to work at a certain time, or a certain time and game.
 
@@ -31,9 +31,9 @@ The files in this repository were used to configure the network depicted below.
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the .yml files may be used to install only certain pieces of it, such as Filebeat.
 
-![dvwa.yml](Ansible/playbooks/dvwa.yml)
-![install-elk.yml](Ansible/playbooks/install-elk.yml)
-![filebeat_metricbeat_install.yml](Ansible/playbooks/Filebeat_metricbeat_install.yml)
+[dvwa.yml](Ansible/playbooks/dvwa.yml)
+[install-elk.yml](Ansible/playbooks/install-elk.yml)
+[filebeat_metricbeat_install.yml](Ansible/playbooks/Filebeat_metricbeat_install.yml)
 
 This document contains the following details:
 - Description of the Topology
