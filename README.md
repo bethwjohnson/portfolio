@@ -52,9 +52,10 @@ This document contains the following details:
 
 ## [Red v. Blue Team - Webserver](Project_Red_v_Blue_Webserver)
 
-A Red Team and Blue Team exploration of a WordPress Webservers.
+A Red Team and Blue Team exploration of WordPress Webservers.
 
-Red Team: Utilized the following tools during the engagement:
+Red Team: 
+Utilized the following tools during the engagement:
 - Kali Linux 
 - WPScan 
 - Nmap 
@@ -63,7 +64,8 @@ Red Team: Utilized the following tools during the engagement:
   - Meterpreter 
   - MSFconsole
 
-Blue Team: Utilized an ELK Stack solution including:
+Blue Team: 
+Utilized an ELK Stack solution including:
 - Filebeat
 - Metricbeat
 - Packetbeat
