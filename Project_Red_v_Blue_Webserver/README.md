@@ -131,7 +131,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
         - `ls`
         - `cat flag2.txt`
 
-       ![flag2](P3_Images/P3T1_flag2_1st_time.png)
+         ![flag2](P3_Images/P3T1_flag2_1st_time.png)
 
       - For **flag1:**
         - `cd /var/www/html`
@@ -208,7 +208,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
         - `whoami`
         - `pwd`
 
-        ![listener](P3_Images/P3T1_nc_lvnp_4444_michael.png)
+          ![listener](P3_Images/P3T1_nc_lvnp_4444_michael.png)
 
   - Since an attacker has a higher chance of maintaining access if they have multiple compromised points, I moved on to user steven.
 
