@@ -16,9 +16,9 @@ Nmap scan results for each machine reveal the below services and OS details:
 To enumerate the network
 `nmap 192.168.1.0/24`
 
- ![overall1](P3_Images/P3_namap_overall_1.png)
+ ![overall1](P3_Images/P3_nmap_overall_1.png)
 
- ![overall2](P3_Images/P3_namap_overall_2.png)
+ ![overall2](P3_Images/P3_nmap_overall_2.png)
 
 Target 1 scan:
 `nmap -A 192.168.1.110`
