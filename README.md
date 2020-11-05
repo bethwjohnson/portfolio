@@ -50,7 +50,7 @@ This document contains the following details:
 
 [View Project](ELK_Stack_Deployment/README.md)
 
-## [Red v. Blue Team - Webserver](Project_Red_v_Blue_Webserver)
+## [Red v. Blue Team - Web server](Project_Red_v_Blue_Webserver)
 
 A Red Team and Blue Team exploration of WordPress Web servers.
 

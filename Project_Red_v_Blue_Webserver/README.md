@@ -1,4 +1,4 @@
-# Red v. Blue Team - Webserver
+# Red v. Blue Team - Web server
 ## Elizabeth Johnson
 ---
 A Red Team and Blue Team exploration of WordPress Web servers.  Due to time constraints, only Target 1 was fully explored.
