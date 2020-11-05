@@ -52,7 +52,7 @@ This document contains the following details:
 
 ## [Red v. Blue Team - Webserver](Project_Red_v_Blue_Webserver)
 
-A Red Team and Blue Team exploration of WordPress Webservers.
+A Red Team and Blue Team exploration of WordPress Web servers.
 
 Red Team: 
 Utilized the following tools during the engagement:
