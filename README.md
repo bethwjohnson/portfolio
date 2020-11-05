@@ -52,9 +52,18 @@ This document contains the following details:
 
 ## [Red v. Blue Team - Webserver](Project_Red_v_Blue_Webserver/README.md)
 
-A Red Team and Blue Team exploration of a WordPress Webserver utilizing:
-Red Team: Kali Linux, WPScan, Nmap, Metasploit, including custom exploits with MSFvenom, Meterpreter and MSFconsole.
-Blue Team: ELK Stack solution utilizing:
+A Red Team and Blue Team exploration of a WordPress Webservers.
+
+Red Team: Utilized the following tools during the engagement:
+- Kali Linux 
+- WPScan 
+- Nmap 
+- Metasploit including custom exploits with: 
+  - MSFvenom 
+  - Meterpreter 
+  - MSFconsole
+
+Blue Team: Utilized an ELK Stack solution including:
 - Filebeat
 - Metricbeat
 - Packetbeat

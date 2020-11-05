@@ -1,8 +1,33 @@
 # Red v. Blue Team - Webserver
 ## Elizabeth Johnson
 ---
+A Red Team and Blue Team exploration of a WordPress Webservers.  Due to time constraints, only Target 1 was fully explored.
+
+## Table of Contents
+- Red Team Summary of Opertions
+- Blue Team Summary of Opertions
+- References
+
+Red Team: Utilized the following tools during the engagement:
+- Kali Linux 
+- WPScan 
+- Nmap 
+- Metasploit including custom exploits with: 
+  - MSFvenom 
+  - Meterpreter 
+  - MSFconsole
+
+Blue Team: Utilized an ELK Stack solution including:
+- Filebeat
+- Metricbeat
+- Packetbeat
+- Kibana
+- Watcher
+
 # Red Team: Summary of Operations
 ---
+This engagement covered a network running  WordPress Webservers. Due to time constraints, only Target 1 was fully explored.  Also, due to the nature of the exercise, the first and last stages of reconnaissance and covering the tracks were omitted.  This engagement covered scanning and enumeration, gaining access and persistence.
+
 ## Table of Contents
 - Exposed Services
 - Critical Vulnerabilities
@@ -71,7 +96,7 @@ Scans
 
 
 ## Exploitation
-The Red Team was able to penetrate Target 1 and retrieve the requested confidential data.  Due to the nature of the exercise, the first and last stages of reconnaissance and covering the tracks were omitted.  This engagement covered scanning and enumeration, gaining access and persistence.
+The Red Team was able to penetrate Target 1 and retrieve the requested confidential data.  
 
 ### **Target 1**
 **Confidential data located:**
@@ -264,20 +289,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
    
         ![reverse_tcp](P3_Images/P3T1_reverse_tcp_steven.png)
 
-
-## References:
-1. [Handy MySQL Commands](http://g2pc1.bu.edu/~qzpeng/manual/MySQL%20Commands.htm) 
-2. [Linux Privilege Escalation using Sudo Rights](https://www.hackingarticles.in/linux-privilege-escalation-using-exploiting-sudo-rights/)
-3. https://www.zscaler.com/blogs/research/malware-leveraging-xml-rpc-vulnerability-exploit-wordpress-sites?utm_source=google&utm_medium=cpc&utm_campaign=dynamic-search-na&gclid=CjwKCAjw_sn8BRBrEiwAnUGJDtlFBbaKCOETjfHtsYwCYuSSfOPV6kYAR2INNBtFXGo5DVoNGhCwjxoCFZ8QAvD_BwE 
-4. https://www.iplocation.net/defend-wordpress-from-ddos 
-5. https://codex.wordpress.org/XML-RPC_Pingback_API 
-6. https://www.offensive-security.com/metasploit-unleashed/scanner-ssh-auxiliary-modules/ 
-7. https://nest.parrot.sh/packages/tools/metasploit-framework/blob/master/documentation/modules/auxiliary/scanner/ssh/ssh_login_pubkey.md 
-8. https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login 
-9. https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner 
-10. https://securityintelligence.com/wordpress-ghost-vulnerability/ 
-11. https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos 
-12. https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access
+---
 
 # Blue Team: Summary of Operations
 ---
@@ -437,18 +449,18 @@ User has sudo access for python, allowing privilege escalation via spawning a ba
 - Recommendation:
   - Remove sudo access for python for the user.
   - If the user requires this access, then craft an alert or report that will watch for “bash” within a sudo command (system.auth.sudo.command: “bash”)
-- Why It Works:  If this access is removed, this method of privilege escalation is closed.  If the access is required and has legitimate uses, such as the user routinely needs to access python, then monitoring for suspicious commands is needed (5).
+- Why It Works:  If this access is removed, this method of privilege escalation is closed.  If the access is required and has legitimate uses, such as the user routinely needs to access python, then monitoring for suspicious commands is needed [2].
 ![Bash_example](P3_Images/P3BT_bash_search.png)
 
 **Weak and Exposed Passwords / SSH Login**
 Users on the system had short, weak passwords. In addition, passwords were exposed within files in both plaintext and hashed form in files that were accessible by users with weak passwords.
 - Recommendations: 
-  - Require SSH keys to login via SSH and disable passwords.  Logging in via keys is generally a more secure way to access the SSH service, especially if best practices are followed regarding securing private keys (4).
-  - Update password policy, including password change requirements, size and complexity.  Installing Pam allows the administrator to set password requirements for types of characters, etc (1).
+  - Require SSH keys to login via SSH and disable passwords.  Logging in via keys is generally a more secure way to access the SSH service, especially if best practices are followed regarding securing private keys [14].
+  - Update password policy, including password change requirements, size and complexity.  Installing Pam allows the administrator to set password requirements for types of characters, etc [13].
 - Why It Works: 
   - Strong passwords are critical to keeping systems secure.  In addition, requiring periodic changes mean that if any passwords have been compromised, administrators can cut off that access with the reset.  
   - SSH keys are also a better method for logging into SSH for security purposes, since they are much more difficult to brute force.
-  - Using SSH keys also prevents the Metasploit exploit for SSH Login because it would not be able to brute force the password.  If the private key is also properly protected, this exploit would not be possible (6, 7).
+  - Using SSH keys also prevents the Metasploit exploit for SSH Login because it would not be able to brute force the password.  If the private key is also properly protected, this exploit would not be possible [6], [7].
 
 **XML-RPC pingback**
 - Recommendation: 
@@ -456,17 +468,28 @@ Users on the system had short, weak passwords. In addition, passwords were expos
   - To improve detection, in case this module is necessary: install mod_status Apache module and enable server-status support, which allows server activities and performance to be viewed.  
   - Disable XML-RPC on all IPs except for known good IP, if needed.
 - Why It Works: 
-  - By removing the service, you remove the method used for this attack (2, 3).
+  - By removing the service, you remove the method used for this attack [4], [5].
   - The Apache module increases visibility of the activities on the network, increasing the chance of catching an attack.
   - By creating a whitelist, this would decrease the chance of malicious traffic.
 
 ## References: 
-1. https://www.linuxtechi.com/enforce-password-policies-linux-ubuntu-centos/
-2. https://www.iplocation.net/defend-wordpress-from-ddos 
-3. https://codex.wordpress.org/XML-RPC_Pingback_API 
-4. https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server 
-5. [Linux Privilege Escalation using Sudo Rights](https://www.hackingarticles.in/linux-privilege-escalation-using-exploiting-sudo-rights/)
+
+
+## References:
+1. [Handy MySQL Commands](http://g2pc1.bu.edu/~qzpeng/manual/MySQL%20Commands.htm) 
+2. [Linux Privilege Escalation using Sudo Rights](https://www.hackingarticles.in/linux-privilege-escalation-using-exploiting-sudo-rights/)
+3. https://www.zscaler.com/blogs/research/malware-leveraging-xml-rpc-vulnerability-exploit-wordpress-sites?utm_source=google&utm_medium=cpc&utm_campaign=dynamic-search-na&gclid=CjwKCAjw_sn8BRBrEiwAnUGJDtlFBbaKCOETjfHtsYwCYuSSfOPV6kYAR2INNBtFXGo5DVoNGhCwjxoCFZ8QAvD_BwE 
+4. https://www.iplocation.net/defend-wordpress-from-ddos 
+5. https://codex.wordpress.org/XML-RPC_Pingback_API 
 6. https://www.offensive-security.com/metasploit-unleashed/scanner-ssh-auxiliary-modules/ 
 7. https://nest.parrot.sh/packages/tools/metasploit-framework/blob/master/documentation/modules/auxiliary/scanner/ssh/ssh_login_pubkey.md 
+8. https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login 
+9. https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner 
+10. https://securityintelligence.com/wordpress-ghost-vulnerability/ 
+11. https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos 
+12. https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access
+13. https://www.linuxtechi.com/enforce-password-policies-linux-ubuntu-centos/
+14. https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server 
+
 
 [Back to Portfolio](https://github.com/bethwjohnson/portfolio)
