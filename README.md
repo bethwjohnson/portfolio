@@ -26,7 +26,7 @@ This portfolio is an example of the types of projects I've done, including:
   - file system disk space
 This script can be automated by adding it to one of the cron directories.
 
-## [Automated ELK Stack Deployment](ELK_Stack_Deployment/README.md)
+## [Automated ELK Stack Deployment](ELK_Stack_Deployment)
 
 The files in this repository were used to configure the network depicted below.
 
@@ -50,7 +50,7 @@ This document contains the following details:
 
 [View Project](ELK_Stack_Deployment/README.md)
 
-## [Red v. Blue Team - Webserver](Project_Red_v_Blue_Webserver/README.md)
+## [Red v. Blue Team - Webserver](Project_Red_v_Blue_Webserver)
 
 A Red Team and Blue Team exploration of a WordPress Webservers.
 
