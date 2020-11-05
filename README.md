@@ -30,15 +30,15 @@ This script can be automated by adding it to one of the cron directories.
 
 The files in this repository were used to configure the network depicted below.
 
-![Network Diagram](Diagrams/EWJ_RT_diagram.png)
+![Network Diagram](ELK_Stack_Deployment/Diagrams/EWJ_RT_diagram.png)
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the .yml files may be used to install only certain pieces of it, such as Filebeat.
 
-[dvwa.yml](Ansible/playbooks/dvwa.yml)
+[dvwa.yml](ELK_Stack_Deployment/Ansible/playbooks/dvwa.yml)
 
-[install-elk.yml](Ansible/playbooks/install-elk.yml)
+[install-elk.yml](ELK_Stack_Deployment/Ansible/playbooks/install-elk.yml)
 
-[filebeat_metricbeat_install.yml](Ansible/playbooks/Filebeat_metricbeat_install.yml)
+[filebeat_metricbeat_install.yml](ELK_Stack_Deployment/Ansible/playbooks/Filebeat_metricbeat_install.yml)
 
 This document contains the following details:
 - Description of the Topology
