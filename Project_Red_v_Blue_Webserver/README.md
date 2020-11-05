@@ -1,14 +1,15 @@
 # Red v. Blue Team - Webserver
 ## Elizabeth Johnson
 ---
-A Red Team and Blue Team exploration of a WordPress Webservers.  Due to time constraints, only Target 1 was fully explored.
+A Red Team and Blue Team exploration of WordPress Webservers.  Due to time constraints, only Target 1 was fully explored.
 
 ## Table of Contents
 - Red Team Summary of Opertions
 - Blue Team Summary of Opertions
 - References
 
-Red Team: Utilized the following tools during the engagement:
+Red Team: 
+Utilized the following tools during the engagement:
 - Kali Linux 
 - WPScan 
 - Nmap 
@@ -17,7 +18,8 @@ Red Team: Utilized the following tools during the engagement:
   - Meterpreter 
   - MSFconsole
 
-Blue Team: Utilized an ELK Stack solution including:
+Blue Team: 
+Utilized an ELK Stack solution including:
 - Filebeat
 - Metricbeat
 - Packetbeat
