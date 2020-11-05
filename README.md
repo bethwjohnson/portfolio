@@ -12,7 +12,9 @@ This portfolio is an example of the types of projects I've done, including:
 ## Linux Bash Scripts
 
 [roulette_dealer_finder_by_time.sh](Linux/roulette_dealer_finder_by_time.sh)
+
 [roulette_dealer_finder_by_time_and_game.sh](Linux/roulette_dealer_finder_by_time_and_game.sh)
+
 [system.sh](Linux/system.sh)
 
 - Roulette Dealer scripts will search through a formatted data file to find information on the person scheduled to work at a certain time, or a certain time and game.
@@ -55,4 +57,5 @@ Blue Team: ELK Stack solution utilizing:
 - Packetbeat
 - Kibana
 - Watcher
+
 [View Project](Project_Red_v_Blue_Webserver/README.md)
