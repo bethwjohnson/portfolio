@@ -472,9 +472,6 @@ Users on the system had short, weak passwords. In addition, passwords were expos
   - The Apache module increases visibility of the activities on the network, increasing the chance of catching an attack.
   - By creating a whitelist, this would decrease the chance of malicious traffic.
 
-## References: 
-
-
 ## References:
 1. [Handy MySQL Commands](http://g2pc1.bu.edu/~qzpeng/manual/MySQL%20Commands.htm) 
 2. [Linux Privilege Escalation using Sudo Rights](https://www.hackingarticles.in/linux-privilege-escalation-using-exploiting-sudo-rights/)
