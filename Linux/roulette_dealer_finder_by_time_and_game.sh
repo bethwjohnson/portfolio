@@ -8,7 +8,7 @@
 
 
 
-#! bin/bash
+#!/bin/bash
 
 if [ $3 = "1" ]; then
   grep -i $2 $1_Dealer_schedule | awk -F" " '{print $1, $2, $3, $4}'
