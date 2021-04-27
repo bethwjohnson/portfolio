@@ -49,7 +49,7 @@ The configuration details of each machine may be found below.
 The machines on the internal network are not exposed to the public Internet. 
 
 Only the Jump-box-provisioner machine and the load balancer can accept connections from the Internet. Access to the Jump-box-provisioner machine is only allowed from the following IP addresses: 
-- 108.87.95.162
+- <ip address>
 
 Machines within the network can only be accessed by the Jump-box-provisioner ansible container.  In addition, the Load Balancer forwards port 80 TCP traffic to the web servers.
 - The ELK VM can also be accessed by 108.87.95.162 for port 5601.
