@@ -14,6 +14,8 @@ These files have been tested and used to generate a live ELK deployment on Azure
 
 [filebeat_metricbeat_install.yml](Ansible/playbooks/Filebeat_metricbeat_install.yml)
 
+[Jump-Box-Provisioner](https://github.com/bethwjohnson/docker-ubuntu-ansible)
+
 This document contains the following details:
 - Description of the Topology
 - Access Policies
@@ -49,7 +51,7 @@ The configuration details of each machine may be found below.
 The machines on the internal network are not exposed to the public Internet. 
 
 Only the Jump-box-provisioner machine and the load balancer can accept connections from the Internet. Access to the Jump-box-provisioner machine is only allowed from the following IP addresses: 
-- `<ip address>`
+- `<redacted_ip_address>`
 
 Machines within the network can only be accessed by the Jump-box-provisioner ansible container.  In addition, the Load Balancer forwards port 80 TCP traffic to the web servers.
 - The ELK VM can also be accessed by 108.87.95.162 for port 5601.
@@ -104,25 +106,29 @@ The playbook, Filebeat_metricbeat_install.yml, implements the following tasks:
 
 ### Using the Playbooks
 
-In order to use the playbooks, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
+In order to use the playbooks, you will need to have an Ansible control node already configured, which is the role our Jump-Box-Provisioner assumes. For information on using a Docker image for the Ansible control node: https://github.com/bethwjohnson/docker-ubuntu-ansible. 
+
+Assuming you have such a control node provisioned: 
 
 To install the ELK server, SSH into the control node and follow the steps below:
-- Copy the playbook, install-elk.yml, to /etc/ansible/roles.
-- Update the /etc/ansible/hosts file to include the IP address for the elk server.
+- Copy the playbook, install-elk.yml, to /etc/ansible/roles: `curl https://raw.githubusercontent.com/bethwjohnson/portfolio/master/ELK_Stack_Deployment/Ansible/playbooks/install-elk.yml -o /etc/ansible/roles/install-elk.yml`
+- Update the /etc/ansible/hosts file to include the IP address for the elk server.  Include `ansible_python_interpreter=/usr/bin/python3` after the IP addresses to ensure things install correctly when using the playbooks.
 - Run the playbook, and navigate to http://<your_ELK_VM_Public_IP>:5601/app/kibana to check that the installation worked as expected. You should see: ![Kibana](Images/Kibana.png)
 
 To install Docker, DVWA and beats packages on the webservers, SSH into the control node and follow these steps:
 - Installing Docker and DVWA:
-  - Copy the playbooks, dvwa.yml and filebeat_metricbeat_install.yml, to /etc/ansible/roles.
-  - Update the /etc/ansible/hosts file to include the IP addresses for the webservers.
+  - Copy the configuration files, dvwa.yml and filebeat_metricbeat_install.yml using following commands:
+    - `curl https://raw.githubusercontent.com/bethwjohnson/portfolio/master/ELK_Stack_Deployment/Ansible/configuration_files/filebeat-configuration.yml -o /etc/ansible/config/filebeatconfig.yml`
+    - `curl https://raw.githubusercontent.com/bethwjohnson/portfolio/master/ELK_Stack_Deployment/Ansible/configuration_files/metricbeat-configuration.yml -o /etc/ansible/config/metricbeatconfig.yml`
+    - `curl https://raw.githubusercontent.com/bethwjohnson/portfolio/master/ELK_Stack_Deployment/Ansible/playbooks/dvwa.yml - o /etc/ansible/roles/dvwa.yml`
+    - `curl https://raw.githubusercontent.com/bethwjohnson/portfolio/master/ELK_Stack_Deployment/Ansible/playbooks/Filebeat_metricbeat_install.yml -o /etc/ansible/roles/file_metric_beat_install.yml`
+
+  - Update the /etc/ansible/hosts file to include the IP addresses for the webservers. Include `ansible_python_interpreter=/usr/bin/python3` after the IP addresses to ensure things install correctly when using the playbooks.
   - Run the playbook, dvwa.yml. 
   - To check that DVWA is working, visit <load balancer public IP>/setup.php in your web browser.  You should see: ![DVWA landing page](Images/dvwa.png)
 
 - Installing Filebeat and Metricbeat:
-  - Use `cd` to enter your files directory, then use `curl https://github.com/bethwjohnson/portfolio/blob/master/Ansible/configuration_files/filebeat-configuration.yml > filebeat-configuration.yml` to save the file to the directory.
-  - Update this file with <elk server private IP address> for hosts under "output.elasticsearch:" and under "setup.kibana".
-  - Use `cd` to enter your files directory, then use `curl https://github.com/bethwjohnson/portfolio/blob/master/Ansible/configuration_files/metricbeat-configuration.yml > metricbeat-configuration.yml` to save the file to the directory.
-  - Update this file with <elk server private IP address> for hosts under "output.elasticsearch:" and under "setup.kibana".
+  - Update the metricbeat and filebeat configuration files in `/etc/ansible/config` file with <elk server private IP address> for hosts under "output.elasticsearch:" and under "setup.kibana".
   - To check Filebeat is working, Click "Add log data" on the Kibana home page, then "System logs", then "Check Data".  You should see:![filebeat](Images/filebeat.png)
   - To check Metricbeat is working, Click "Add metric data" on the Kibana home page, then "Docker Metrics" then "Check Data". You should see:![metricbeat](Images/metricbeat.png)
   - For both steps, if you need to troubleshoot, make sure you are on "DEB" for the Getting Started instructions.
