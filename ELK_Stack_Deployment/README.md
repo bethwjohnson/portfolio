@@ -118,8 +118,8 @@ To install the ELK server, SSH into the control node and follow the steps below:
 To install Docker, DVWA and beats packages on the webservers, SSH into the control node and follow these steps:
 - Installing Docker and DVWA:
   - Copy the configuration files, dvwa.yml and filebeat_metricbeat_install.yml using following commands:
-    - `curl https://raw.githubusercontent.com/bethwjohnson/portfolio/master/ELK_Stack_Deployment/Ansible/configuration_files/filebeat-configuration.yml -o /etc/ansible/config/filebeatconfig.yml`
-    - `curl https://raw.githubusercontent.com/bethwjohnson/portfolio/master/ELK_Stack_Deployment/Ansible/configuration_files/metricbeat-configuration.yml -o /etc/ansible/config/metricbeatconfig.yml`
+    - `curl https://raw.githubusercontent.com/bethwjohnson/portfolio/master/ELK_Stack_Deployment/Ansible/configuration_files/filebeat-configuration.yml -o /etc/ansible/config/filebeat-configuration.yml`
+    - `curl https://raw.githubusercontent.com/bethwjohnson/portfolio/master/ELK_Stack_Deployment/Ansible/configuration_files/metricbeat-configuration.yml -o /etc/ansible/config/metricbeat-configuration.yml`
     - `curl https://raw.githubusercontent.com/bethwjohnson/portfolio/master/ELK_Stack_Deployment/Ansible/playbooks/dvwa.yml - o /etc/ansible/roles/dvwa.yml`
     - `curl https://raw.githubusercontent.com/bethwjohnson/portfolio/master/ELK_Stack_Deployment/Ansible/playbooks/Filebeat_metricbeat_install.yml -o /etc/ansible/roles/file_metric_beat_install.yml`
 
